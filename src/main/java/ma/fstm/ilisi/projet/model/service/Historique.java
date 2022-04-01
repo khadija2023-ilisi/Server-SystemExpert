@@ -9,6 +9,7 @@ public class Historique {
 	String identifiant;
 	double possi_covid;
 	Date dateDia;
+	
 	public Historique(ObjectId idDioagno,String identifiant, double possi_covid, Date dateDia) {
 		this.idDioagno= idDioagno;
 		this.identifiant = identifiant;
