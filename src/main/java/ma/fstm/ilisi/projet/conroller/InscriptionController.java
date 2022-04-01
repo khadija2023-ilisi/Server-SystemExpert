@@ -1,6 +1,7 @@
 package ma.fstm.ilisi.projet.conroller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import ma.fstm.ilisi.projet.model.bo.Patient;
@@ -22,7 +23,7 @@ public class InscriptionController {
 		this.val= new Validation();
 	}
 	//
-	public Errors create(String nom,String prenom,String identifiant,int ddn,String add,String ville) {
+	public Errors create(String nom,String prenom,String identifiant,Date ddn,String add,String ville) {
 		Errors code;
 		
 		Ville vi= address.findVilleByName(ville);
@@ -51,6 +52,7 @@ public class InscriptionController {
 		for(int i=0;i<vlls.size();i++)villes.add(vlls.get(i).getVilleName());
 		return villes;
 	}
+	//get symptomes
 	
 	
 }

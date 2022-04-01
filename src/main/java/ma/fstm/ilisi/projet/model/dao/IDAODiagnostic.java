@@ -10,4 +10,5 @@ public interface IDAODiagnostic {
 	void create(Diagnostic dia);
 	Collection<Diagnostic> retreive();
 	Collection<Diagnostic> retreive(ObjectId id);
+	Diagnostic AfficherDiagnostic(ObjectId idDia);
 }

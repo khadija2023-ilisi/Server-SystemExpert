@@ -9,14 +9,14 @@ ObjectId _id;
 private String nom;
 private String prenom;
 private String identifiant;																																																									
-private int dateNaissance;
+private Date dateNaissance;
 private String adresse;
 private int age;
 private Ville ville;
 /*************************************************/
 /***********Constructeur**************************/
 /*************************************************/
-public Patient(ObjectId _id, String nom, String prenom, String identifiant, int dateNaissance, String adresse,
+public Patient(ObjectId _id, String nom, String prenom, String identifiant, Date dateNaissance, String adresse,
 		Ville ville) {
 	super();
 	this._id = _id;
@@ -27,7 +27,7 @@ public Patient(ObjectId _id, String nom, String prenom, String identifiant, int 
 	this.adresse = adresse;
 	this.ville = ville;
 }
-public Patient( String nom, String prenom, String identifiant, int dateNaissance, String adresse,
+public Patient( String nom, String prenom, String identifiant, Date dateNaissance, String adresse,
 		Ville ville) {
 	this.nom = nom;
 	this.prenom = prenom;
@@ -65,10 +65,10 @@ public String getIdentifiant() {
 public void setIdentifiant(String identifiant) {
 	this.identifiant = identifiant;
 }
-public int getDateNaissance() {
+public Date getDateNaissance() {
 	return dateNaissance;
 }
-public void setDateNaissance(int dateNaissance) {
+public void setDateNaissance(Date dateNaissance) {
 	this.dateNaissance = dateNaissance;
 }
 public String getAdresse() {

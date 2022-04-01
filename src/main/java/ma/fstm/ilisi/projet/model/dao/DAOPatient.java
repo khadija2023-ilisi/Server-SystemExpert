@@ -59,7 +59,7 @@ public class DAOPatient implements IDAOPatient {
 	    Ville v=new DAOAdress().findVilleById((ObjectId)curr.getObjectId("idVille"));
 	    System.out.println(v+curr.getObjectId("idVille").toString());
 			patients.add(new Patient(curr.getObjectId("_Id"), curr.getString("nom"), curr.getString("prenom"), 
-									curr.getString("identifier"), curr.getInteger("dateNaissance"), curr.getString("adress"),v));
+									curr.getString("identifier"), curr.getDate("dateNaissance"), curr.getString("adress"),v));
 		}
 		
 		return patients;
@@ -83,7 +83,7 @@ String prenom, String login, String password, Date dateNaissance,
 		Document patient = collection.find(Filters.eq("identifier", ide)).first();
 		if(patient==null)return null;
 		pt=new Patient( patient.getObjectId("_id"),patient.getString("nom"),patient.getString("prenom"),
-						patient.getString("identifier"),patient.getInteger("dateNaissance"),
+						patient.getString("identifier"),patient.getDate("dateNaissance"),
 						patient.getString("adresse"),dao.findVilleById(patient.getObjectId("idVille"))
 						);
 		return pt;
@@ -94,7 +94,7 @@ String prenom, String login, String password, Date dateNaissance,
 		Document patient = collection.find(Filters.eq("_id", ide)).first();
 		if(patient==null)return null;
 		pt=new Patient( patient.getObjectId("_id"),patient.getString("nom"),patient.getString("prenom"),
-						patient.getString("identifier"),patient.getInteger("dateNaissance"),
+						patient.getString("identifier"),patient.getDate("dateNaissance"),
 						patient.getString("adresse"),dao.findVilleById(patient.getObjectId("idVille"))
 						);
 		return pt;

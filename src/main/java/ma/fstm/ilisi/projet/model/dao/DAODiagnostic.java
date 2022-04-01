@@ -119,5 +119,42 @@ public class DAODiagnostic implements IDAODiagnostic{
 		}
 		return diagnostics;
 	}
+	@Override
+	public Diagnostic AfficherDiagnostic(ObjectId idDia) {
+		// TODO Auto-generated method stub
+		
+		Diagnostic dia = null;
+		//Diagnostic diagnostics= new Diagnostic(idDia,pat);
+		Document curr = collection.find(Filters.eq("_id",idDia)).first();
+		//MongoCursor<Document> cursor = iterable.iterator();
+		//if(iterab)
+		System.out.println("Patient list with cursor: ");
+		if (curr != null) {
+			Patient pat= new DAOPatient().findPatientById(curr.getObjectId("idPat"));
+			dia=new Diagnostic(curr.getObjectId("_id"),pat);
+			/******Setting attributes******/
+			//chercher les symptomes figurent en diagnostic courant
+			ArrayList<Document> symp = (ArrayList<Document>) curr.get("symptomes");
+			DAOSymptom dao_symptom= new DAOSymptom();
+			if(symp!=null)
+			for(Document it:symp) {
+				
+				dia.addSymptom( dao_symptom.findSymptomById( (ObjectId)it.get("idS") ) );
+			}
+			//chercher les maladie figurent en diagnostic courant
+			ArrayList<Document> mald =(ArrayList<Document>) curr.get("maladies");
+			DAOMaladie dao_mal= new DAOMaladie();
+			if(mald!=null)
+			for(Document it:mald) {
+				dia.addCronic(dao_mal.findMaladieById((ObjectId)it.get("idC")));
+			}
+			/*****************/
+			dia.setPossi_presence(curr.getDouble("PossiPresence"));
+			dia.setTemperature(curr.getDouble("temperature"));
+			dia.setDate_diagnostic(curr.getDate("date"));
+				
+			}
+		return dia;
+	}
 
 }
