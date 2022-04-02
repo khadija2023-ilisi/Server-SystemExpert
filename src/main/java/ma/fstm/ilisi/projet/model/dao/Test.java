@@ -1,6 +1,8 @@
 package ma.fstm.ilisi.projet.model.dao;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 import ma.fstm.ilisi.projet.model.bo.CronicDisease;
@@ -35,9 +37,24 @@ public class Test {
 		dia.fireAll();
 		System.out.println(dia.getPossi_presence());*/
 		//new DAODiagnostic().create(dia);
+		LocalDate today = LocalDate.now();
+		LocalDate birthday = LocalDate.of(2000, 8, 24);
+
+		Period period = Period.between(birthday, today);
+
+		//Now accessaccess the values as below
+		//System.out.println(period.getDays());
+		//System.out.println(period.getMonths());
+		System.out.println(period.getYears());
 		for(Diagnostic s :new DAODiagnostic().retreive(patient.get_id())) {
 			s.fireAll();
-			System.out.println(s.getPossi_presence());
+//			birthday=LocalDate.of(s.getDate_diagnostic().getYear(),1,1);
+			int year=Integer.parseInt(s.getDate_diagnostic().toString().substring(24, 28));
+			int age=LocalDate.now().getYear()-year;
+			System.out.println("you born in "+s.getDate_diagnostic().toString().substring(24, 28)+" "+age+" is your age "+s.getPatient().getNom());
+//			 period = Period.between(birthday, today);		
+//			 System.out.println("years ! "+period.getYears());
+
 		}
 	}
 

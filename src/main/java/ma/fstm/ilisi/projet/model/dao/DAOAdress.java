@@ -91,9 +91,15 @@ public class DAOAdress implements IDAOAdress {
 
 	}
 	public Region findRegionByName(String name) {
-		
+		System.out.println(name);
 		Document region = collectionR.find(Filters.eq("name", name)).first();
-		Region rg= new Region(region.getObjectId("_id"),region.getString("name"),region.getString("capital"),region.getInteger("population"));
+		//if(region!=null)System.out.println(region.getString("name")+region.getString("capital")+region.getObjectId("_id").toString());
+		Region rg=new Region();
+		//region.getObjectId("_id"),region.getString("name"),region.getString("capital"),region.getInteger("population")
+		if(region!=null) {
+			System.out.println(region.getString("name")+region.getString("capital")+region.getObjectId("_id").toString());
+			rg.set_id(region.getObjectId("_id"));
+		}
 		return rg;
 		
 
@@ -116,6 +122,7 @@ public class DAOAdress implements IDAOAdress {
 
 	}
 	public void update(Region rg) {
+		//Region rg=this.findRegionByName(name);
 		Document query = new Document();
 		query.append("_id", rg.get_id());
 		Document setdata = new Document()
@@ -130,5 +137,6 @@ public class DAOAdress implements IDAOAdress {
 		Document update=new Document();
 		update.append("$set", setdata);
 		collectionR.updateOne(query, update);
+		System.out.println("a doc updated !");
 	}
 }

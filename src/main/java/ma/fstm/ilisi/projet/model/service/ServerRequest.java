@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 
+import ma.fstm.ilisi.projet.model.bo.CronicDisease;
 import ma.fstm.ilisi.projet.model.bo.Diagnostic;
 import ma.fstm.ilisi.projet.model.bo.Patient;
 import ma.fstm.ilisi.projet.model.bo.Region;
@@ -20,6 +21,7 @@ import ma.fstm.ilisi.projet.model.bo.Symptom;
 import ma.fstm.ilisi.projet.model.bo.Ville;
 import ma.fstm.ilisi.projet.model.dao.DAOAdress;
 import ma.fstm.ilisi.projet.model.dao.DAODiagnostic;
+import ma.fstm.ilisi.projet.model.dao.DAOMaladie;
 import ma.fstm.ilisi.projet.model.dao.DAOPatient;
 import ma.fstm.ilisi.projet.model.dao.DAOSymptom;
 
@@ -62,7 +64,7 @@ public class ServerRequest extends Thread {
 				PrintWriter pw = new PrintWriter(os, true);
 				// avoir l'adreese ip du client
 				String IP = socket.getRemoteSocketAddress().toString();
-				System.out.println(IP + " connected / numero  : " + numeroClient);
+				System.out.println(IP + " connected / nu-mero  : " + numeroClient);
 				// reception d'objet
 
 				Request req = (Request) objectInputStream.readObject();
@@ -110,17 +112,16 @@ public class ServerRequest extends Thread {
 					break;
 
 				case 9:
-					System.out.println("Demande de diagnostique :");
-					Diagnostic dgstq = (Diagnostic) req.getObjet();
-					// Execution de Drools
-					dgstq.fireAll();
-					System.out.println("Envoi de reponse vers : " + IP);
-
-					System.out.println(dgstq);
-
-					pw.println(dgstq.getPossi_presence());
-
+					Diagnostic d = (Diagnostic) req.getObjet();
+					System.out.println(d);
+					d.fireAll();
+					new DAODiagnostic().create(d);
 					break;
+				case 10:    System.out.println("Requet de type 10");
+							// envoie liste des maladies
+							List<CronicDisease> x = (List<CronicDisease>) new DAOMaladie().retreive();
+							objectOutputStream.writeObject(x);
+							break;
 				default:
 					break;
 				}

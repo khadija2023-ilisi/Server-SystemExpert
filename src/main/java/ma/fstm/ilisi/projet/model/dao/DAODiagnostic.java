@@ -20,6 +20,8 @@ import ma.fstm.ilisi.projet.model.bo.Patient;
 import ma.fstm.ilisi.projet.model.bo.Symptom;
 
 public class DAODiagnostic implements IDAODiagnostic{
+	DAOSymptom daosymp= new DAOSymptom();
+	DAOMaladie daomal = new DAOMaladie();
 	MongoCollection<Document> collection= ConnectionDB.getDb().getCollection("Diagnostique");
 	@Override
 	public void create(Diagnostic dia) {
@@ -27,12 +29,18 @@ public class DAODiagnostic implements IDAODiagnostic{
 		//charger les symptomes dans un tableau
 		ArrayList<Document> sym=new ArrayList<Document>();
 		for(Symptom s : dia.getSymptomes()) {
+			if(s.get_id()==null) {
+				s.set_id(daosymp.findSymptomByName(s.getSymName()).get_id());
+			}
 			sym.add(new Document().append("idS", s.get_id()) );
 		}
 		//charger les maladies croniques dans un tableau
 		ArrayList<Document> mal=new ArrayList<Document>();
 		for(CronicDisease m : dia.getMaladiesC()){
-			sym.add(new Document().append("idC", m.get_id()) );
+		if(m.get_id()==null) {
+			m.set_id(daomal.findSymptomByName(m.getCronName()).get_id());			
+		}
+			mal.add(new Document().append("idC", m.get_id()) );
 		}
 		//creation du docment diagnostic
 		Document doc = new Document()

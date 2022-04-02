@@ -11,6 +11,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ma.fstm.ilisi.projet.model.bo.Region;
+import ma.fstm.ilisi.projet.model.dao.DAOAdress;
+
 public class JSONparse implements Runnable {
 	
 	private Thread ref;
@@ -44,7 +47,11 @@ public class JSONparse implements Runnable {
 				int nbmort= info.getInt("Deaths");
 				int nbRecov = info.getInt("Recoveries");
 				int nbCase = info.getInt("Cases");
-				  
+				Region rg=new DAOAdress().findRegionByName(nomReg);
+				rg.setTotalPositif(nbCase);
+				rg.setRecovery(nbRecov);
+				rg.setDeath(nbmort);
+				new DAOAdress().update(rg);  
 				System.out.println(nomReg);
 				System.out.println(nbmort);
 				System.out.println(nbRecov);
@@ -62,7 +69,7 @@ public class JSONparse implements Runnable {
 	  
 	   //System.out.println(jr);
 	    try {
-			Thread.sleep(1000);
+			Thread.sleep(100000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
