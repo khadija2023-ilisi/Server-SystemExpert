@@ -1,10 +1,11 @@
 package ma.fstm.ilisi.projet.model.service;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.bson.types.ObjectId;
 
-public class Historique {
+public class Historique implements Serializable {
 	ObjectId idDioagno;
 	String identifiant;
 	double possi_covid;

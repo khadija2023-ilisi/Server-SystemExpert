@@ -107,7 +107,9 @@ public class DAOAdress implements IDAOAdress {
 	public Ville findVilleByName(String name) {
 		
 		Document ville = collectionV.find(Filters.eq("name", name)).first();
+		System.out.println(ville.getObjectId("region"));
 		Region rg=this.findRegionByID(ville.getObjectId("region"));
+		System.out.println(rg.getRegionName());
 		Ville vl= new Ville(ville.getObjectId("_id"),ville.getString("name"),rg);
 		return vl;
 		

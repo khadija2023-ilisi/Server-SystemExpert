@@ -77,9 +77,10 @@ public class ServerRequest extends Thread {
 					break;
 				case 2:
 					System.out.println("Requet de type 2");
+					Patient pat = (Patient) req.getObjet();
 					// envoie liste des symptomes
 					List<Diagnostic> dia = (List<Diagnostic>) new DAODiagnostic()
-							.retreive(new DAOPatient().findPatientByIdentifier("bj444970").get_id());
+							.retreive(new DAOPatient().findPatientByIdentifier(pat.getIdentifiant()).get_id());
 					objectOutputStream.writeObject(dia);
 					break;
 				case 3:
@@ -91,6 +92,8 @@ public class ServerRequest extends Thread {
 				case 4:
 					Patient pa = (Patient) req.getObjet();
 					new DAOPatient().create(pa);
+					Patient p1= new DAOPatient().findPatientByIdentifier(pa.getIdentifiant());
+					objectOutputStream.writeObject(p1);
 					break;
 				case 5:
 					String region = (String) req.getObjet();
@@ -110,18 +113,32 @@ public class ServerRequest extends Thread {
 					List<Symptom> sympt = (List<Symptom>) new DAOSymptom().retreive();
 					objectOutputStream.writeObject(sympt);
 					break;
-
+				case 8:
+					System.out.println("Requet de type 8");
+					// envoie liste des symptomes
+					ObjectId id = (ObjectId) req.getObjet();
+					List<Historique> lh = (List<Historique>) new DAODiagnostic().histroriqueDiagno(id);
+					objectOutputStream.writeObject(lh);
+					break;
 				case 9:
+					System.out.println("Requet de type 9");
 					Diagnostic d = (Diagnostic) req.getObjet();
 					System.out.println(d);
 					d.fireAll();
+					objectOutputStream.writeObject(d);
 					new DAODiagnostic().create(d);
 					break;
-				case 10:    System.out.println("Requet de type 10");
-							// envoie liste des maladies
-							List<CronicDisease> x = (List<CronicDisease>) new DAOMaladie().retreive();
-							objectOutputStream.writeObject(x);
-							break;
+				case 10:
+					System.out.println("Requet de type 10");
+					// envoie liste des maladies
+					List<CronicDisease> x = (List<CronicDisease>) new DAOMaladie().retreive();
+					objectOutputStream.writeObject(x);
+					break;
+				case 11:
+					System.out.println("request de type 11 : find ville by name");
+					String villename=(String) req.getObjet();
+					Ville vl= new DAOAdress().findVilleByName(villename);
+					objectOutputStream.writeObject(vl); break;
 				default:
 					break;
 				}

@@ -2,13 +2,11 @@ package ma.fstm.ilisi.projet.model.dao;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.List;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
-import com.mongodb.BasicDBList;
-import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -18,6 +16,7 @@ import ma.fstm.ilisi.projet.model.bo.CronicDisease;
 import ma.fstm.ilisi.projet.model.bo.Diagnostic;
 import ma.fstm.ilisi.projet.model.bo.Patient;
 import ma.fstm.ilisi.projet.model.bo.Symptom;
+import ma.fstm.ilisi.projet.model.service.Historique;
 
 public class DAODiagnostic implements IDAODiagnostic{
 	DAOSymptom daosymp= new DAOSymptom();
@@ -163,6 +162,19 @@ public class DAODiagnostic implements IDAODiagnostic{
 				
 			}
 		return dia;
+	}
+	public List<Historique> histroriqueDiagno(ObjectId identif) {
+		List<Historique> histo = new ArrayList<Historique>();
+		List<Diagnostic> col = (List<Diagnostic>) this.retreive(identif);
+		if(col.size()>0) {
+			String ident = col.get(0).getPatient().getIdentifiant();
+			for (int i = 0; i < col.size(); i++) {
+				Historique h = new Historique(col.get(i).get_id(), ident, col.get(i).getPossi_presence(),
+						col.get(i).getDate_diagnostic());
+				histo.add(h);
+			}
+		}
+		return histo;
 	}
 
 }
