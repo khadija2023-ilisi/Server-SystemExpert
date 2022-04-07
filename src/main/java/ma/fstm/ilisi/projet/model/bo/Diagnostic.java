@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.bson.types.ObjectId;
+
+import ma.fstm.ilisi.projet.model.service.SendEmail1;
 public class Diagnostic implements Serializable{
 	
 private ObjectId _id;
@@ -18,6 +20,7 @@ private Date date_diagnostic;
 private double possi_presence=0.0;
 private boolean contact=false;
 private double temperature=37;
+private boolean sent=false;
 /*************************************************/
 /**************Constructeur**********************/
 /*************************************************/
@@ -121,5 +124,10 @@ public boolean isMaladieCronique(String mal) {
 }
 public void fireAll() {
 	 new ma.fstm.ilisi.projet.model.service.ServiceKie(this);
+}
+public void sendEmail() {
+	if(this.sent==true) return;
+	this.sent=true;
+	new SendEmail1(this).EnvoiEmail("kamassafi19@gmail.com");
 }
 }

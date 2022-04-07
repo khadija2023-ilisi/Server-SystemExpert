@@ -98,7 +98,7 @@ no-loop true
         	
         //SendEmail1 email= new SendEmail1(d);
         	//email.EnvoiEmail("kamassafi19@gmail.com");
-        	
+        	d.sendEmail();
            	System.out.println("cette diagnostique est dangereuse 7\n");
         
 end
@@ -111,8 +111,8 @@ salience 1
         
         //SendEmail1 email= new SendEmail1(d);
         	//email.EnvoiEmail("kamassafi19@gmail.com");
-        	
-           	System.out.println("cette diagnostique est dangereuse 7\n");
+        	d.sendEmail();
+           	System.out.println("cette diagnostique est dangereuse 8\n");
         	
 end
 rule "rule_9"
@@ -124,8 +124,8 @@ no-loop true
     then
         //SendEmail1 email= new SendEmail1(d);
         	//email.EnvoiEmail("kamassafi19@gmail.com");
-        	
-           	System.out.println("cette diagnostique est dangereuse 7\n");
+        	d.sendEmail();
+           	System.out.println("cette diagnostique est dangereuse 9\n");
 end
 
 

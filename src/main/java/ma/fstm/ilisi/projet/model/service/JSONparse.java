@@ -11,6 +11,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.sbix.jnotify.NPosition;
+import com.sbix.jnotify.NoticeType;
+import com.sbix.jnotify.NoticeWindow;
+
 import ma.fstm.ilisi.projet.model.bo.Region;
 import ma.fstm.ilisi.projet.model.dao.DAOAdress;
 
@@ -49,7 +53,7 @@ public class JSONparse implements Runnable {
 					int nbCase = info.getInt("Cases");
 					Region rg = new DAOAdress().findRegionByName(nomReg);
 					/// updates of data
-					rg.setPopulationPositif(-rg.getTotalPositif());
+					//rg.setPopulationPositif(-rg.getTotalPositif());
 					rg.setTotalPositif(nbCase);
 					rg.setRecovery(nbRecov);
 					rg.setDeath(nbmort);
@@ -62,7 +66,12 @@ public class JSONparse implements Runnable {
 					System.out.println("nombre de mort " + nbmort);
 					System.out.println("nombre des gens retablis " + nbRecov);
 					System.out.println("nombre totale des cas positifs " + nbCase);
-					
+					System.out.println(rg.getPopulation()+" le nombre des cas positif  "+rg.getPopulationPositif());
+					if(rg.getPopulationPositif()>17150)
+						new NoticeWindow(NoticeType.ERROR_NOTIFICATION,rg.getRegionName()+" est dangereuse !",NoticeWindow.LONG_DELAY,NPosition.BOTTOM_LEFT);
+					else 
+						new NoticeWindow(NoticeType.SUCCESS_NOTIFICATION,rg.getRegionName()+" n'est pas dangereuse !",NoticeWindow.NORMAL_DELAY,NPosition.BOTTOM_RIGHT);
+
 				}
 				System.out.println(m + " times!");
 			} catch (JSONException e1) {

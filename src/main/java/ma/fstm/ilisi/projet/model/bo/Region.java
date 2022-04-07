@@ -109,6 +109,10 @@ public class Region implements Serializable {
 	public String toString() {
 		return regionName ;
 	}
-
+	public boolean estDangeureuse()
+	{
+		//if(this.population==0)return false;
+		return ((this.populationPositif+this.death)/this.population)>=0.3;
+	}
 	
 }

@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="D:/Projet/jars/mongodb-jdbc-1.1.0-all.jar"/>
 	<classpathentry kind="lib" path="D:/Projet/parsing api/json-20220320.jar"/>
 	<classpathentry kind="lib" path="D:/Projet/parsing api/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="D:/Projet/notification/jnotify.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

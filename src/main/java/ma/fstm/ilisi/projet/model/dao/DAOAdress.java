@@ -97,8 +97,23 @@ public class DAOAdress implements IDAOAdress {
 		Region rg=new Region();
 		//region.getObjectId("_id"),region.getString("name"),region.getString("capital"),region.getInteger("population")
 		if(region!=null) {
+			/***
+			 * 
+			 * .append("populationPositif", rg.getPopulationPositif())
+				.append("estHautRisque", rg.isEstHautRisque())
+				.append("recovery",rg.getRecovery())
+				.append("death", rg.getDeath())
+				.append("totPositif", rg.getTotalPositif())
+				.append("totRecovery", rg.getTotRecovery())
+				.append("totDeath", rg.getTotDeath())
+			 */
 			System.out.println(region.getString("name")+region.getString("capital")+region.getObjectId("_id").toString());
 			rg.set_id(region.getObjectId("_id"));
+			rg.setCapital(region.getString("capital"));
+			rg.setRegionName(region.getString("name"));
+			rg.setPopulation(region.getInteger("population"));
+			rg.setDeath(region.getInteger("death"));
+			rg.setPopulationPositif(region.getInteger("populationPositif"));
 		}
 		return rg;
 		
