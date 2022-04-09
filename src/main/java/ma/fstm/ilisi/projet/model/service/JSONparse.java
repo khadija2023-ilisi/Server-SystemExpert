@@ -41,8 +41,9 @@ public class JSONparse implements Runnable {
 		while (true) {
 			++m;
 			String url = "https://services3.arcgis.com/hjUMsSJ87zgoicvl/arcgis/rest/services/Covid_19/FeatureServer/0/query?where=1%3D1&outFields=RegionFr,Cases,Deaths,Recoveries&returnGeometry=false&outSR=4326&f=json";
-			JSONObject jr = JSONparse.parser(url);
+			
 			try {
+				JSONObject jr = JSONparse.parser(url);
 				JSONArray firstT = jr.getJSONArray("features");
 				for (int i = 0; i != firstT.length(); i++) {
 					JSONObject atb = firstT.getJSONObject(i);
@@ -74,9 +75,11 @@ public class JSONparse implements Runnable {
 
 				}
 				System.out.println(m + " times!");
-			} catch (JSONException e1) {
+			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+				new NoticeWindow(NoticeType.DEFAULT_NOTIFICATION," vous n'aves pas de connexion !",NoticeWindow.NORMAL_DELAY,NPosition.BOTTOM_RIGHT);
+
 			}
 
 			// System.out.println(jr);

@@ -78,7 +78,24 @@ public class DAOAdress implements IDAOAdress {
 		MongoCursor<Document> cursor = it.iterator();
 		while (cursor.hasNext()) {
 			Document curr=cursor.next();
-			regions.add(new Region(curr.getObjectId("_id"),curr.getString("name"),curr.getString("capital"),curr.getInteger("population")));
+			Region rg=new Region(curr.getObjectId("_id"),curr.getString("name"),curr.getString("capital"),curr.getInteger("population"));
+			/*
+			 * 
+			 * .append("populationPositif", rg.getPopulationPositif())
+				.append("estHautRisque", rg.isEstHautRisque())
+				.append("recovery",rg.getRecovery())
+				.append("death", rg.getDeath())
+				.append("totPositif", rg.getTotalPositif())
+				.append("totRecovery", rg.getTotRecovery())
+				.append("totDeath", rg.getTotDeath())
+			 */
+			rg.setDeath(curr.getInteger("death"));
+			rg.setTotDeath(curr.getInteger("totDeath"));
+			rg.setRecovery(curr.getInteger("recovery"));
+			rg.setTotRecovery(curr.getInteger("totRecovery"));
+			rg.setPopulationPositif(curr.getInteger("populationPositif"));
+			rg.setTotalPositif(curr.getInteger("totPositif"));
+			regions.add(rg);
 		}
 		return regions;
 		

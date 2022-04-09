@@ -1,4 +1,4 @@
-package ma.fstm.ilisi.projet.model.service;
+package ma.fstm.ilisi.projet.server;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,17 +13,10 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 
-import ma.fstm.ilisi.projet.model.bo.CronicDisease;
-import ma.fstm.ilisi.projet.model.bo.Diagnostic;
-import ma.fstm.ilisi.projet.model.bo.Patient;
-import ma.fstm.ilisi.projet.model.bo.Region;
-import ma.fstm.ilisi.projet.model.bo.Symptom;
-import ma.fstm.ilisi.projet.model.bo.Ville;
-import ma.fstm.ilisi.projet.model.dao.DAOAdress;
-import ma.fstm.ilisi.projet.model.dao.DAODiagnostic;
-import ma.fstm.ilisi.projet.model.dao.DAOMaladie;
-import ma.fstm.ilisi.projet.model.dao.DAOPatient;
-import ma.fstm.ilisi.projet.model.dao.DAOSymptom;
+import ma.fstm.ilisi.projet.model.bo.*;
+import ma.fstm.ilisi.projet.model.dao.*;
+import ma.fstm.ilisi.projet.model.service.Historique;
+import ma.fstm.ilisi.projet.model.service.Request;
 
 public class ServerRequest extends Thread {
 	int nbClients;
@@ -78,7 +71,7 @@ public class ServerRequest extends Thread {
 				case 2:
 					System.out.println("Requet de type 2");
 					Patient pat = (Patient) req.getObjet();
-					// envoie liste des symptomes
+					// envoie liste des diagnostics
 					List<Diagnostic> dia = (List<Diagnostic>) new DAODiagnostic()
 							.retreive(new DAOPatient().findPatientByIdentifier(pat.getIdentifiant()).get_id());
 					objectOutputStream.writeObject(dia);
